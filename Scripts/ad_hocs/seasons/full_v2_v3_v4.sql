@@ -34,12 +34,12 @@ WHERE id in (select pf.id
 			
 INSERT INTO public.product_features
 (product_id, feature_id, value, percentage, created_at, updated_at)
-select id, 2, 'Весна-Осень', NULL, now(), now()
+select id, 2, 'Весна–Осень', NULL, now(), now()
 from products p 
 where category_id in (227, 201, 185, 170);
 
 UPDATE public.product_features 
-SET value='Весна-Осень'
+SET value='Весна–Осень'
 WHERE id in (select pf.id 
 from product_features pf 
 inner join products p on p.id = pf.product_id
@@ -127,9 +127,10 @@ where pf.feature_id = 2 and
 --Категория Дети - Мальчики - Шорты 224
 	 (p.category_id = 224 and pf.value in ('Всесезонный')));
 --Лето
+--Категория Мужчины - Футболки и поло - Поло 187
+--Установить сезон «Лето»
 --Категория Мужчины - Футболки и поло - Поло 177
 --Установить сезон «Лето»
-
 --Категория Мужчины - Футболки и поло - Футболки 176
 --Установить сезон «Лето»
 
@@ -139,13 +140,13 @@ DELETE FROM public.product_features
 WHERE id in (select pf.id 
 			 from product_features pf 
 			 inner join products p on p.id = pf.product_id
-			 where pf.feature_id = 2 and p.category_id in(177, 176, 76));
+			 where pf.feature_id = 2 and p.category_id in(187, 177, 176, 76));
 			
 INSERT INTO public.product_features
 (product_id, feature_id, value, percentage, created_at, updated_at)
 select id, 2, 'Лето', NULL, now(), now()
 from products p 
-where category_id in (177, 176, 76);
+where category_id in (187, 177, 176, 76);
 
 UPDATE public.product_features 
 SET value='Лето'
@@ -162,15 +163,15 @@ where pf.feature_id = 2 and
 --Категория Женщины - Корсеты 238
 	(p.category_id = 238 and pf.value in ('Всесезонный')) or
 --Категория Женщины - Платья - Вечерние платья 12
-	(p.category_id = 12 and pf.value in ('Демисезонный', 'Не задано')) or
+	(p.category_id = 12 and pf.value in ('Всесезонный', 'Не задано')) or
 --Категория Женщины - Платья - Короткие платья 183
 	(p.category_id = 183 and pf.value in ('Лето')) or
 --Категория Женщины - Топы и майки - Майки 143
 	(p.category_id = 143 and pf.value in ('Всесезонный')) or
 --Категория Женщины - Топы и майки - Топы 30 
 	(p.category_id = 30 and pf.value in ('Всесезонный', 'Не задано')) or
---Категория Женщины - Футболки и туники - Футболки 176
-	(p.category_id = 176 and pf.value in ('Всесезонный')) or
+--Категория Женщины - Футболки и туники - Футболки 144
+	(p.category_id = 144 and pf.value in ('Всесезонный')) or
 --Категория Дети - Девочки - Платья 226
 	(p.category_id = 226 and pf.value in ('Всесезонный')) or
 --Категория Дети - Девочки - Юбки 225
@@ -180,7 +181,11 @@ where pf.feature_id = 2 and
 --Всесезонный
 --Категория Женщины - Сумки и рюкзаки 86
 --Удалить сезон «Всесезонный»
-	
+DELETE FROM public.product_features 
+WHERE id in (select pf.id 
+			 from product_features pf 
+			 inner join products p on p.id = pf.product_id
+			 where pf.feature_id = 2 and p.category_id = 86 and value='Всесезонный');	
 --Категория Женщины - Носки 192
 --Установить сезон «Всесезонный»
 	
@@ -190,7 +195,7 @@ DELETE FROM public.product_features
 WHERE id in (select pf.id 
 			 from product_features pf 
 			 inner join products p on p.id = pf.product_id
-			 where pf.feature_id = 2 and p.category_id in(86, 192, 194));
+			 where pf.feature_id = 2 and p.category_id in(86,192, 194));
 			
 INSERT INTO public.product_features
 (product_id, feature_id, value, percentage, created_at, updated_at)
@@ -207,15 +212,15 @@ where pf.feature_id = 2 and
 --Категория Женщины - Домашняя одежда 155
 	(p.category_id = 155 and pf.value in ('Лето', 'Не задано')) or
 --Категория Женщины - Рубашки и блузки 24
-	(p.category_id = 24 and pf.value in ('Весна-Осень', 'Демисезонный', 'Осень', 'Не задано')) or
+	(p.category_id = 24 and pf.value in ('Весна–Осень', 'Демисезонный', 'Осень', 'Не задано')) or
 --Категория Мужчины - Домашняя одежда 188
 	(p.category_id = 188 and pf.value in ('Зима', 'Не задано')) or
 --Категория Мужчины - Обувь 2
 	(p.category_id = 2 and pf.value in ('Осень')) or
 --Категория Мужчины - Рубашки - Классические рубашки 164
-	(p.category_id = 239 and pf.value in ('Демисезонный')) or
+	(p.category_id = 164 and pf.value in ('Демисезонный')) or
 --Категория Женщины - Спортивная одежда 89, 240
-	(p.category_id = 239 and pf.value in ('Лето')));
+	(p.category_id in (89,240) and pf.value in ('Лето')));
 --Зима
 UPDATE public.product_features 
 SET value='Зима'
